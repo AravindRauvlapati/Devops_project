@@ -1,0 +1,9 @@
+# writing for varablies
+
+a = 2
+b = 3
+c = a+b
+
+dist = {"Name": "aravind", "age": 20, "Skills":{"Devops": { "source control": "git"}, "infra": "terrafrom", "programmming lang": "python", "Cloud": "AWS"}}
+
+Print(dist)
