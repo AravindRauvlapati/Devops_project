@@ -1,0 +1,91 @@
+{
+  "project": "MicroservicesApp",
+  "version": "2.5.1",
+  "environments": {
+    "dev": {
+      "replicas": 2,
+      "region": "us-east-1",
+      "autoscaling": {
+        "enabled": true,
+        "minReplicas": 2,
+        "maxReplicas": 5
+      },
+      "secrets": {
+        "vault": "dev-vault",
+        "keys": ["DB_PASSWORD", "API_KEY"]
+      }
+    },
+    "prod": {
+      "replicas": 5,
+      "region": "us-west-2",
+      "autoscaling": {
+        "enabled": true,
+        "minReplicas": 5,
+        "maxReplicas": 15
+      },
+      "secrets": {
+        "vault": "prod-vault",
+        "keys": ["DB_PASSWORD", "API_KEY", "SMTP_PASS"]
+      }
+    }
+  },
+  "infrastructure": {
+    "provider": "AWS",
+    "services": ["EC2", "EKS", "S3", "RDS"],
+    "terraform": {
+      "version": "1.6.2",
+      "state_backend": {
+        "type": "s3",
+        "bucket": "terraform-states",
+        "region": "us-west-2",
+        "encryption": true
+      }
+    }
+  },
+  "ci_cd": {
+    "enabled": true,
+    "tool": "GitHub Actions",
+    "stages": [
+      {
+        "name": "build",
+        "jobs": ["npm install", "npm run build"]
+      },
+      {
+        "name": "test",
+        "jobs": ["unit tests", "integration tests"]
+      },
+      {
+        "name": "deploy",
+        "jobs": ["terraform apply", "kubectl rollout"]
+      }
+    ]
+  },
+  "monitoring": {
+    "enabled": true,
+    "tools": {
+      "metrics": "Prometheus",
+      "visualization": "Grafana",
+      "tracing": "Jaeger"
+    }
+  },
+  "notifications": {
+    "slack": {
+      "channel": "#devops-alerts",
+      "webhook_url": "https://hooks.slack.com/services/XXX/YYY/ZZZ"
+    },
+    "email": {
+      "recipients": ["devops-team@example.com", "alerts@example.com"],
+      "smtp_server": "smtp.example.com"
+    }
+  },
+  "security": {
+    "scanning": {
+      "enabled": true,
+      "tools": ["Trivy", "Snyk"]
+    },
+    "compliance": {
+      "enabled": true,
+      "policies": ["CIS", "NIST"]
+    }
+  }
+}
