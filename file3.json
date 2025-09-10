@@ -1,0 +1,36 @@
+{
+    "project": "DevOps Demo",
+    "owner": "John",
+    "environments": [
+        {
+            "name": "development",
+            "url": "http://dev.example.com",
+            "deploy": true,
+            "credentials": {
+                "username": "dev_user",
+                "password": "dev_pass"
+            }
+        },
+        {
+            "name": "production",
+            "url": "http://prod.example.com",
+            "deploy": false,
+            "credentials": {
+                "username": "prod_user",
+                "password": "prod_pass"
+            }
+        }
+    ],
+    "monitoring": {
+        "enabled": true,
+        "tools": ["Prometheus", "Grafana"]
+    },
+    "notifications": {
+        "email": "devops-team@example.com",
+        "slack": "#devops-alerts"
+    },
+    "ci_cd": {
+        "enabled": true,
+        "tools": ["Jenkins", "GitHub Actions"]
+    }
+}
