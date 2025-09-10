@@ -1,0 +1,35 @@
+{
+    "name":"Araind",
+    "age":"24",
+    "Environments": [
+        {
+            "name":"Prodction",
+            "URL":"https/github",
+            "depoly": "true",
+            "cred":{
+
+                "username":"Test",
+                "password":"Test001"
+            }
+        },
+
+        {
+            "name":"Test",
+            "URL":"https/github",
+                "depoly": "true",
+            "cred":{
+
+                "username":"Test",
+                "password":"Test001"
+            }
+        }
+    ],
+    "monitoring": {
+        "enabled": true,
+        "tools": ["Prometheus", "Grafana"]
+    },
+    "Jenkins":{
+        "stage":"bulid",
+        "tools":["maven"]
+    }
+}
