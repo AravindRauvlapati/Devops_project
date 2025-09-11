@@ -1,0 +1,44 @@
+project: devops-pipeline
+versionn: 2.0
+
+environments:
+  dev:
+    replicas: 2
+    region: "eastdivision"
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 5
+    secrets:
+      vault: dev-vault
+      keys:
+        - DB_PASSWORD
+        - API_KEY
+  prod:
+      replicas: 15
+      region: "eastdivision"
+      autoscaling:
+        minReplicas: 13
+        maxReplicas: 2
+      secrets:
+        vault: prod_vault
+        keys:
+          - DB_PASSWORD
+          - API_KEY
+          - SMTP_PASS
+
+infrastructure:
+  provider: AWS
+  services:
+    - EC2
+    - EKS
+    - S3
+    - RDS
+  terraform:
+    version: 2.0
+    state_backend:
+      type: s3
+      bucket: terraform-states
+      region: us-west-2
+      encryption: true
+
